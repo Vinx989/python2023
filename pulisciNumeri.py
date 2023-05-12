@@ -8,7 +8,7 @@ a = 0
 numeri_unici= [] #lista vuota per i numeri unici(contenitore)
 
 while split_on:
-    numeri_dig = input('Inserisci una secuenza di numeri\n')
+    numeri_dig = input('Inserisci una sequenza di numeri\n')
 
     lista_numeri= list(numeri_dig) #creo la lista di numeri
 
