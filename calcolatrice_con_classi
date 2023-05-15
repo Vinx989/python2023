@@ -1,0 +1,80 @@
+calco_on = True
+operazioni = []
+
+numeri= ['0','1','2','3','4','5','6','7','8','9','.']
+
+class Calcolatrice:
+
+    def somma (self, x, y):
+        return x + y
+    def differenza (self, x, y):
+        return x - y
+    def moltiplicazione (self, x, y):
+        return x * y
+    
+    def calcolo(self,oper,x,y):
+        calcolo = f'{x}{oper}{y}={risultato}'
+        return calcolo
+
+    def controllo (self,carattere,numeri):
+        check = True
+        for item in carattere:
+            if item not in numeri:
+                check=False
+        return check
+
+    def controllo_ope(self,ope):
+        check = True
+        for item in ope:
+            if item not in ['-','*','+']:
+                check=False
+        return check
+
+calcolatrice = Calcolatrice()
+
+while calco_on:
+    scelta = input('Che operazione vuoi fare?\nPremi 1 per fare un calcolo\nPremi 2 per stampare lo storico\nPremi 3 per pulire i dati\nPremi 4 per uscire\n')
+    
+    opzione_on = True
+    while opzione_on:
+        if scelta not in ['1','2','3','4']:
+            print('Errore di typing. Si prega di digitare corretamente')
+        elif scelta == '4':
+            print('Arrivederci')
+            opzione_on = False
+            calco_on = False
+        elif scelta == '2':
+            print('Ecco la lista dei calcoli eseguiti')
+            for item in operazioni:
+                print(item)
+            opzione_on=False
+        elif scelta == '3':
+            operazioni = []
+        else:
+            somma_risultati = 0
+            count_calcolo = 0
+            while count_calcolo < 3:
+                numero_1 = input('Inserisci il primo numero\n').replace(' ','').replace(',','.')
+                numero_2 = input('Inserisci il secondo numero\n').replace(' ','').replace(',','.')
+                operazione = input('Quale operazione vuoi fare?\nPremi "+" per SOMMA\nPremi "-" per SOTTRAZIONE\nPremi "*" per moltiplicazione\n').replace(' ','').replace('.','').replace(',','')
+
+                numero_1_check = calcolatrice.controllo(list(numero_1), numeri)
+                numero_2_check = calcolatrice.controllo(list(numero_2), numeri)
+                operazione_check = calcolatrice.controllo_ope(list(operazione))
+                
+                if numero_1_check != False and numero_2_check != False and operazione_check != False:
+                    if operazione == '+':
+                        risultato = calcolatrice.somma(float(numero_1), float(numero_2))
+                    elif operazione == '-':
+                        risultato = calcolatrice.differenza(float(numero_1), float(numero_2))
+                    else:
+                        risultato = calcolatrice.moltiplicazione(float(numero_1), float(numero_2))
+                    item = calcolatrice.calcolo (operazione,float(numero_1), float(numero_2))
+                    operazioni.append(item)
+                    print(f'Il risultao è {risultato}')
+                    somma_risultati +=risultato
+                    count_calcolo += 1
+                else:
+                    print('Error tipo typing. Digita correttamente')
+            print(f'La somma dei tuoi calcoli è {somma_risultati}') 
+        opzione_on = False
