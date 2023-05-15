@@ -1,0 +1,47 @@
+def switch (lang):
+    if lang == 'esci':
+        return False
+    elif lang == '1':
+        return 1
+    elif lang == '2':
+        return 2
+    elif lang == '3':
+        return 3
+    elif lang == '4':
+        return 4
+    else:
+        print('Errore di tipo typing')
+
+def comando (lista, scelta):
+    if scelta == 3:
+        animale=input('Che animale vuoi rimuovere?\n')
+        if animale in lista:
+            lista.remuve(item)
+        else:
+            print('animale non presente')
+    elif scelta ==1:
+        print(lista)
+    elif scelta == 2:
+        animale=input('che animale vuoi aggiungere\n')
+        lista.append(animale)
+    else:
+        #scelta==4:
+        animale = ('Che animale vuoi modificare?\n')
+        lista.remove(animale)
+        animale_nuovo= ('Come diventa?\n')
+        lista.append(animale)
+    
+
+        
+
+lista_elementi =['cane','gatto','topo','elefante', 'due leocorni']
+game_on =True
+
+while game_on != False:
+    richiesta = input('Cosa vuoi fare?\nPremi 1 per stampare\nPremi 2 aggiunrere elemento\nPremi 3 per cancellare elemento\nPremi 4 per modificare elemento\nDigita"esci" per uscire\n')
+
+    game_on= switch(richiesta)
+    if game_on==False:
+        break
+    else:
+        comando(lista_elementi,game_on)
