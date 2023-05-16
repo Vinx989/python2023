@@ -16,17 +16,16 @@ def comando (lista, scelta):
     if scelta == 3:
         animale=input('Che animale vuoi rimuovere?\n')
         if animale in lista:
-            lista.remuve(item)
+            lista.remove(animale)
         else:
             print('animale non presente')
-    elif scelta ==1:
+    if scelta ==1:
         print(lista)
-    elif scelta == 2:
+    if scelta == 2:
         animale=input('che animale vuoi aggiungere\n')
         lista.append(animale)
-    else:
-        #scelta==4:
-        animale = ('Che animale vuoi modificare?\n')
+    if scelta==4:
+        animale = input('Che animale vuoi modificare?\n')
         lista.remove(animale)
         animale_nuovo= ('Come diventa?\n')
         lista.append(animale)
@@ -45,3 +44,6 @@ while game_on != False:
         break
     else:
         comando(lista_elementi,game_on)
+
+
+
