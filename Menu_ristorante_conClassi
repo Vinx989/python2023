@@ -1,0 +1,163 @@
+#logo creato da Hayley Jane Wakenshaw disponibile su asciart.eu
+logo = """ .~~~~.
+i====i_
+|cccc|_)
+|cccc|   hjw
+`-==-' """
+
+scelta_on = True
+
+ordine_tavolo = []
+lista_clienti= []
+
+# creo una funzione che mi ordina
+
+PASSWORD = 'GigiIlBello78'
+menu = [{'nome':'carbonara', 'prezzo': 12.5},
+            {'nome':'cacio e pepe', 'prezzo': 13.5},
+            {'nome':'agnello e patate', 'prezzo': 16.5},
+            {'nome':'stinco di maiale', 'prezzo': 18.5},
+            {'nome':'Insalata mista', 'prezzo': 6.0},
+            {'nome':'Patate mpacchiuse', 'prezzo': 7.5}
+            ]
+def show_menu (menu):
+    option = ""
+    for item in menu:
+        option += f'{item["nome"]}  costo  {item["prezzo"]} euro\n'
+    return option
+
+# Classe per salvare l'ordine del cliente
+class Save_order:
+    def __init__(self, nome, spesa, ordine):
+        self.nome = nome
+        self.spesa = spesa
+        self.ordine = ordine
+
+    def save_cliente(self, nome_cli, conto_cli, ordine_cli, lista):
+        cliente[self.nome] = nome_cli
+        cliente[self.spesa] = conto_cli
+        cliente[self.ordine] = ordine_cli 
+        return lista.append(cliente)
+
+
+#queste sono le funzioni ordine che il cliente può fare
+def ordina_4(menu,ordine, order_name,count_ord):
+    for item in menu:
+        if item["nome"] == order_name:
+            ordine.append(item)
+            count_ord +=1
+        else:
+            print('Piatto nontrovato')
+    return count_ord, ordine
+
+def chiedi_conto(ordine):
+    conto = 0
+    lista = ""
+    nome_persone = input('Inserisci nome e cognome')
+    for item in ordine:
+        conto += item["prezzo"]
+        lista += f'{item["nome"]}  costo  {item["prezzo"]} euro\n'
+    return conto, nome_persone, lista
+
+# oggetto ristoratore
+class Ristoratore:
+    def __init__(self):
+        self.password = 'GigiIlBello78'
+
+    def check_credenziali(self, cred_user):
+        if self.password == cred_user:
+            return True
+        elif cred_user=='1':
+            return False
+        else:
+            print('Errore credenziali')
+        
+    def add_piatto(self,menu_locale, piatto, prezzo):
+        piatto_add ={}
+        menu = menu_locale
+        piatto_add["nome"]=piatto
+        piatto_add["prezzo"]=prezzo
+        menu.append(piatto_add)
+        return menu
+     
+    def modifica_prezzo(self,menu_locale, piatto, prezzo):
+        menu=menu_locale
+        for item in menu:
+            if item["nome"]==piatto:
+                item["prezzo"] = prezzo
+        return menu
+    
+    def delete_piatto(self,menu_locale,piatto):
+        menu = menu_locale
+        for item in menu:
+            if item["nome"]==piatto:
+                menu.remove(item)
+        return menu
+            
+gigi_action = Ristoratore()
+repository = Save_order()
+
+print(logo)
+print('Benvanuti al PuBest')
+
+
+while scelta_on:
+    entry_point = input('Cosa vuoi fare?\nPremi 1 per il menu.\nPremi 2 per uscire?\n')
+    if entry_point == '2':
+        scelta_on=False
+    elif entry_point == '1':
+        
+        menu_on = True
+        while menu_on:
+            optzioni = show_menu(menu)
+            print(optzioni)
+            menu_scelta = input('Cosa vuoi fare?\nPremi 1 per ordinare.\nPremi 2 per richiedere conto.\nPremi 3 per modificare il menu (ristoratore).\nPremi 4 per tornare indietro.\n')
+            # Fai il tuo ordine
+            if menu_scelta == '1':
+                count_ord = 0
+                while count_ord <3:
+                    piatto_nome = input('Che piatto vuoi ordinare?\n')
+                    count_ord, ordine_tavolo = ordina_4(menu,ordine_tavolo,piatto_nome, count_ord)
+            # Richiesta conto
+            elif menu_scelta == '2':            
+                conto, cliente, ordine_tot = chiedi_conto(ordine_tavolo) 
+                print(ordine_tot)
+                print(f'Il conto è {conto} euro')
+                lista_clienti = repository.save_cliente(cliente,conto,ordine_tavolo,lista_clienti)
+                menu_on = False
+            # Parte riservata al ristoratore
+            elif menu_scelta == '3':
+                risto_on=True
+                while risto_on:
+                    credenziali = input('Inserire password o premere "1" per tornare indietro.\n')
+                    gigi_on= gigi_action.check_credenziali(credenziali)
+                    if gigi_on == False:
+                        risto_on = gigi_on
+                    elif gigi_on==True:
+                        action = input('Cosa vuoi fare?\nPremi 1 per aggiungere piatto.\nPremi 2 per modificare il prezzo.\nPremi 3 per cancellare un piatto.\n')
+                        if action == '1':
+                            nome_piatto = input('quale piatto vuoi aggiungere?\n')
+                            prezzo_piatto = float(input('quale è il prezzo?\n'))
+                            menu = gigi_action.add_piatto(menu,nome_piatto,prezzo_piatto)
+                            risto_on=False
+                        elif action =='2':
+                            nome_piatto = input('quale piatto vuoi modificare?\n')
+                            prezzo_piatto = float(input('quale è il prezzo?\n'))
+                            menu = gigi_action.modifica_prezzo(menu,nome_piatto,prezzo_piatto)
+                            risto_on=False
+                        elif action == '3':
+                            nome_piatto = input('quale piatto vuoi eliminare?\n')
+                            menu=gigi_action.delete_piatto(menu,nome_piatto)
+                            risto_on=False
+                        else:
+                            print('Errore. Digita correttamente')
+
+
+                    else: 
+                        print('Errore. Digita correttamente')
+                    
+            else:
+                print('Errore. Digita correttamente')
+            
+    else:
+        print('Errore. Digita correttamente')
