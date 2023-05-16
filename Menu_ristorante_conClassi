@@ -102,7 +102,7 @@ class Ristoratore:
 ###########################################
 #Qui mi creo gli oggetti per l'esecuzione
 gigi_action = Ristoratore(PASSWORD)
-repository = Save_order()
+
 
 ########################
 #Messaggio di benvenuto
@@ -137,6 +137,7 @@ while scelta_on:
                 conto, cliente, ordine_tot = chiedi_conto(ordine_tavolo) 
                 print(ordine_tot)
                 print(f'Il conto è {conto} euro')
+                repository = Save_order(cliente,conto,ordine_tavolo)
                 lista_clienti = repository.save_cliente(cliente,conto,ordine_tavolo,lista_clienti)
                 menu_on = False
 
@@ -177,7 +178,9 @@ while scelta_on:
 
                     else: 
                         print('Errore. Digita correttamente')         # controllo typing Ristoratore password
-                    
+
+            elif menu_scelta == '4':
+                menu_on = False     
             else:
                 print('Errore. Digita correttamente')                 # controllo typing Azione menu
             
