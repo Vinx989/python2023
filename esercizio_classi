@@ -1,0 +1,44 @@
+class Squadra:
+
+    tipo= 'calcio'
+
+    def __init__(self, Nome_squadra, colore_maglia):
+        self.nome_team = Nome_squadra
+        self.t_shirt = colore_maglia
+    
+    def Intro(self):
+        print(f'Squadra di {self.tipo} che si chiama {self.nome_team} e colore maglietta {self.t_shirt}')
+
+class Allenatore(Squadra):
+
+    def __init__(self, Nome_squadra, colore_maglia, nome_allenatore):
+        super().__init__(Nome_squadra, colore_maglia)
+        self.allenatore = nome_allenatore
+
+    def Intro_2(self):
+        print(f"L'allenatore è {self.allenatore}")
+
+
+class Giocatore(Allenatore):
+
+    def __init__(self, Nome_squadra, colore_maglia, nome_allenatore, nome_calciatore, ruolo):
+        super().__init__(Nome_squadra, colore_maglia, nome_allenatore)
+        self.nome = nome_calciatore
+        self.ruolo = ruolo
+
+    def Intro_3(self):
+        print(f'Ciao sono {self.nome} e sono un {self.ruolo}')
+        super().Intro
+        super().Intro_2
+
+
+team = Squadra('Juve','bianca e nera')
+coach = Allenatore('Juve','bianca e nera', 'Allegri')
+player = Giocatore('Juve','bianca e nera', 'Allegri','Bonucci','difensore')
+
+team.Intro()
+coach.Intro_2()
+
+player.Intro_3()
+player.Intro()
+player.Intro_2()
